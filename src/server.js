@@ -6,6 +6,7 @@ import { getUser } from "./users/users.utils";
 const PORT = process.env.PORT;
 const server = new ApolloServer({
   schema,
+  playground: true,
   context: async ({ req }) => {
     return {
       loggedInUser: await getUser(req.headers.token),
