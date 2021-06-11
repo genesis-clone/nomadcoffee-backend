@@ -1,16 +1,18 @@
 import client from "../../client";
+import { protectedResolver } from "../users.utils";
 
 export default {
   Query: {
-    seeProfile: (_, { username }) => 
+    seeProfile: protectedResolver((_, __, { loggedInUser }) => 
       client.user.findUnique({
         where: {
-          username,
+          username: loggedInUser.username,
         },
         include: {
           following: true,
           followers: true,
         },
-      }),
+      })
+    ),
   },
 };
